@@ -11,7 +11,10 @@ export default function Header() {
         <a href="/">Articles</a>
         <a href="/">About</a>
 
-        <button>Logout</button>
+        {/* eslint-disable-next-line jsx-a11y/accessible-emoji  */}
+        <button className="Burger">
+          🍔
+        </button>
       </nav>
     </header>
   )
