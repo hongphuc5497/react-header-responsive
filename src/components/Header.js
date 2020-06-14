@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CSSTransition } from "react-transition-group";
 import logo from "../logo.svg";
 import "./Header.css";
 
@@ -9,7 +10,6 @@ export default function Header() {
 	const toggleNav = () => setNavVisibility(!isNavVisible);
 
 	const handleMediaQueryChange = (mediaQuery) => {
-		console.log(mediaQuery);
 		if (mediaQuery.matches) {
 			setIsSmallScreen(true);
 		} else {
@@ -18,7 +18,7 @@ export default function Header() {
 	};
 
 	useEffect(() => {
-		const mediaQuery = window.matchMedia('(max-width: 700px)');
+		const mediaQuery = window.matchMedia("(max-width: 700px)");
 		mediaQuery.addListener(handleMediaQueryChange);
 		handleMediaQueryChange(mediaQuery);
 
@@ -30,14 +30,21 @@ export default function Header() {
 	return (
 		<header className="Header">
 			<img src={logo} alt="logo" className="Logo" />
-			{(!isSmallScreen || isNavVisible) && (
+
+			<CSSTransition
+				in={!isSmallScreen || isNavVisible}
+				timeout={350}
+				classNames="NavAnimation"
+				unmountOnExit
+			>
 				<nav className="Nav">
 					<a href="/">Home</a>
 					<a href="/">Articles</a>
 					<a href="/">About</a>
 					<button>Logout</button>
 				</nav>
-			)}
+			</CSSTransition>
+
 			{/* eslint-disable-next-line jsx-a11y/accessible-emoji  */}
 			<button className="Burger" onClick={toggleNav}>
 				🍔
